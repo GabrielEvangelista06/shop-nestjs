@@ -10,13 +10,17 @@ import {
 import { v4 as uuid } from 'uuid';
 import { UserEntity } from './User.entity';
 import { UserRepository } from './User.repository';
+import { UserService } from './User.service';
 import { CreateUserDTO } from './dto/CreateUser.dto';
 import { ListUserDTO } from './dto/ListUser.dto';
 import { UpdateUserDTO } from './dto/UpdateUser.dto copy';
 
 @Controller('/users')
 export class UserController {
-  constructor(private userRepository: UserRepository) {}
+  constructor(
+    private userRepository: UserRepository,
+    private userService: UserService,
+  ) {}
 
   @Post()
   async createUser(@Body() userData: CreateUserDTO) {
@@ -27,7 +31,7 @@ export class UserController {
     user.email = userData.email;
     user.password = userData.password;
 
-    this.userRepository.save(user);
+    this.userService.createUser(user);
 
     return {
       status: 'ok',
@@ -38,9 +42,7 @@ export class UserController {
 
   @Get()
   async listUsers() {
-    const savedUsers = await this.userRepository.list();
-
-    const users = savedUsers.map((user) => new ListUserDTO(user.id, user.name));
+    const users = await this.userService.listUsers();
 
     return users;
   }
@@ -50,7 +52,7 @@ export class UserController {
     @Param('id') id: string,
     @Body() updatedData: UpdateUserDTO,
   ) {
-    const updatedUser = await this.userRepository.update(id, updatedData);
+    const updatedUser = await this.userService.updateUser(id, updatedData);
 
     return {
       status: 'ok',
@@ -61,7 +63,7 @@ export class UserController {
 
   @Delete('/:id')
   async deleteUser(@Param('id') id: string) {
-    const removedUser = await this.userRepository.delete(id);
+    const removedUser = await this.userService.deleteUser(id);
 
     return {
       status: 'ok',
