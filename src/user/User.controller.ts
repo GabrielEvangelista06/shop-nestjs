@@ -46,8 +46,11 @@ export class UserController {
   }
 
   @Put('/:id')
-  async updateUser(@Param('id') id: string, @Body() updateData: UpdateUserDTO) {
-    const updatedUser = await this.userRepository.update(id, updateData);
+  async updateUser(
+    @Param('id') id: string,
+    @Body() updatedData: UpdateUserDTO,
+  ) {
+    const updatedUser = await this.userRepository.update(id, updatedData);
 
     return {
       status: 'ok',
