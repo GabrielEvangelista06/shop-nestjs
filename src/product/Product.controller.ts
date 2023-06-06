@@ -28,11 +28,9 @@ export class ProductController {
     product.price = productData.price;
     product.availableQuantity = productData.availableQuantity;
     product.description = productData.description;
-    product.characteristics = productData.characteristics;
-    product.images = productData.images;
+    // product.characteristics = productData.characteristics;
+    // product.images = productData.images;
     product.category = productData.category;
-    product.crated_at = productData.created_at;
-    product.updated_at = productData.updated_at;
 
     this.productRepository.save(product);
 
