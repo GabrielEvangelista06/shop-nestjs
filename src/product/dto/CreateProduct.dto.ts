@@ -1,11 +1,17 @@
+import { Type } from 'class-transformer';
 import {
+  ArrayMinSize,
+  IsArray,
   IsNotEmpty,
   IsNumber,
   IsString,
   IsUUID,
   MaxLength,
   Min,
+  ValidateNested,
 } from 'class-validator';
+import { CharacteristicProductDTO } from './CharacteristicProduct.dto';
+import { ImageProductDTO } from './ImageProduct.dto';
 
 export class CreateProductDTO {
   @IsUUID(undefined, { message: 'ID do usuário é inváilido' })
@@ -29,6 +35,18 @@ export class CreateProductDTO {
     message: 'Descrição não pode ter mais que 1000 caracteres',
   })
   description: string;
+
+  @ValidateNested()
+  @IsArray()
+  @ArrayMinSize(2)
+  @Type(() => CharacteristicProductDTO)
+  characterists: CharacteristicProductDTO[];
+
+  @ValidateNested()
+  @IsArray()
+  @ArrayMinSize(1)
+  @Type(() => ImageProductDTO)
+  images: ImageProductDTO[];
 
   @IsString()
   @IsNotEmpty({ message: 'Categoria do produto não pode ser vazia' })

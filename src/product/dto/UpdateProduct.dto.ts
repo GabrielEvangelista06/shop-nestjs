@@ -1,12 +1,18 @@
 import { Optional } from '@nestjs/common';
+import { Type } from 'class-transformer';
 import {
+  ArrayMinSize,
+  IsArray,
   IsNotEmpty,
   IsNumber,
   IsString,
   IsUUID,
   MaxLength,
   Min,
+  ValidateNested,
 } from 'class-validator';
+import { CharacteristicProductDTO } from './CharacteristicProduct.dto';
+import { ImageProductDTO } from './ImageProduct.dto';
 
 export class UpdatedProductDTO {
   @IsUUID(undefined, { message: 'ID do usuário é inváilido' })
@@ -35,6 +41,18 @@ export class UpdatedProductDTO {
   })
   @Optional()
   description: string;
+
+  @ValidateNested()
+  @IsArray()
+  @ArrayMinSize(2)
+  @Type(() => CharacteristicProductDTO)
+  characterists: CharacteristicProductDTO[];
+
+  @ValidateNested()
+  @IsArray()
+  @ArrayMinSize(1)
+  @Type(() => ImageProductDTO)
+  images: ImageProductDTO[];
 
   @IsString()
   @IsNotEmpty({ message: 'Categoria do produto não pode ser vazia' })
