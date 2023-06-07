@@ -12,7 +12,7 @@ import { ProductEntity } from './Product.entity';
 import { ProductService } from './Product.service';
 import { CreateProductDTO } from './dto/CreateProduct.dto';
 import { ListProductDTO } from './dto/ListProduct.dto';
-import { UpdatedProductDTO } from './dto/UpdateProduct.dto copy';
+import { UpdatedProductDTO } from './dto/UpdateProduct.dto';
 
 @Controller('/products')
 export class ProductController {
@@ -29,6 +29,8 @@ export class ProductController {
     product.availableQuantity = productData.availableQuantity;
     product.description = productData.description;
     product.category = productData.category;
+    product.characteristics = productData.characterists;
+    product.images = productData.images;
 
     this.productService.createProduct(product);
 
