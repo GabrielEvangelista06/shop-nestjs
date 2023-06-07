@@ -9,7 +9,7 @@ import {
 
 export class CreateProductDTO {
   @IsUUID(undefined, { message: 'ID do usuário é inváilido' })
-  userID: string;
+  userId: string;
 
   @IsString()
   @IsNotEmpty({ message: 'Nome do produto não pode ser vazio' })
