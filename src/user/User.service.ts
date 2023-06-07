@@ -30,4 +30,12 @@ export class UserService {
   async deleteUser(id: string) {
     await this.userRepository.delete(id);
   }
+
+  async existingEmail(email: string) {
+    const checkEmail = await this.userRepository.findOne({
+      where: { email },
+    });
+
+    return checkEmail;
+  }
 }

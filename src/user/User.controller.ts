@@ -9,7 +9,6 @@ import {
 } from '@nestjs/common';
 import { v4 as uuid } from 'uuid';
 import { UserEntity } from './User.entity';
-import { UserRepository } from './User.repository';
 import { UserService } from './User.service';
 import { CreateUserDTO } from './dto/CreateUser.dto';
 import { ListUserDTO } from './dto/ListUser.dto';
@@ -17,10 +16,7 @@ import { UpdateUserDTO } from './dto/UpdateUser.dto copy';
 
 @Controller('/users')
 export class UserController {
-  constructor(
-    private userRepository: UserRepository,
-    private userService: UserService,
-  ) {}
+  constructor(private userService: UserService) {}
 
   @Post()
   async createUser(@Body() userData: CreateUserDTO) {
