@@ -24,7 +24,7 @@
 
 ## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+This repository was create to show my first project in NestJs, he's the result of my studies in this Framework. A project to simulate a shop, with CRUD's of users and products.
 
 ## Installation
 
